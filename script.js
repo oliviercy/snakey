@@ -66,7 +66,19 @@ window.onload = function ()
     {
         ctx.save();     // Enregistrement du contexte avant d'appliquer les changements
         ctx.font = "bold 15px EYInterstate";
-        ctx.fillText("Game over, grosse ch\350vre !", 5, 20);    // Il suffit de remplacer les caractères accentués par leur équivalent en octal précédé de \ (anti-slash)
+        var messages = ["grosse ch\350vre",
+                        "chenille malade",
+                        "trilobite an\351mique",
+                        "anthropopith\350que",
+                        "moule \340 gaufres",
+                        "coprolithe",
+                        "nodoc\351phale",
+                        "coureuse de rempart",
+                        "gourgandine",
+                        "t'es mauvais Jack",
+                       ];
+        j = Math.floor(Math.random() * 9) + 0   // Le premier chiffre est le nombre de possibilités, le deuxième la valeur de départ
+        ctx.fillText("Game over, " + messages[j] +" !", 5, 20);    // Il suffit de remplacer les caractères accentués par leur équivalent en octal précédé de \ (anti-slash)
                                                                 // Table des équivalences en octal / hex / html : http://www.pjb.com.au/comp/diacritics.html
         ctx.font = "bold italic 10px EYInterstate";
         ctx.fillText("Appuyer sur Espace pour rejouer.", 5, 50);
