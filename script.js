@@ -77,7 +77,7 @@ window.onload = function ()
                         "gourgandine",
                         "t'es mauvais Jack",
                        ];
-        j = Math.floor(Math.random() * 9) + 0   // Le premier chiffre est le nombre de possibilités, le deuxième la valeur de départ
+        j = Math.floor(Math.random() * 10) + 0   // Le premier chiffre est le nombre de possibilités, le deuxième la valeur de départ
         ctx.fillText("Game over, " + messages[j] +" !", 5, 20);    // Il suffit de remplacer les caractères accentués par leur équivalent en octal précédé de \ (anti-slash)
                                                                 // Table des équivalences en octal / hex / html : http://www.pjb.com.au/comp/diacritics.html
         ctx.font = "bold italic 10px EYInterstate";
