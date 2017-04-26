@@ -81,30 +81,30 @@ function SnakeGame(canvasWidth, canvasHeight, blockSize, delay)    // Fonction c
     {
         instance.snake.advance();
         if(instance.checkCollision())
-            {
-                // GAME OVER
-                instance.gameOver();
-            }
+        {
+            // GAME OVER
+            instance.gameOver();
+        }
         else
-            {
-                if(instance.snake.isEatingApple(instance.apple))
+        {
+            if(instance.snake.isEatingApple(instance.apple))
+                {
+                    instance.score++;
+                    instance.snake.ateApple = true;
+                    do
                     {
-                        instance.score++;
-                        instance.snake.ateApple = true;
-                        do
-                        {
-                            instance.apple.setNewPosition(instance.widthInBlocks, instance.heightInBlocks);    // LE SERPENT A MANGé LA POMME
-                        }
-                        while(instance.apple.isOnSnake(instance.snake)) // Tant que la pomme est sur le snakee, redonne une nouvelle position à la pomme
+                        instance.apple.setNewPosition(instance.widthInBlocks, instance.heightInBlocks);    // LE SERPENT A MANGé LA POMME
                     }
-                instance.ctx.clearRect(0, 0, instance.canvas.width, instance.canvas.height);  // Efface le rectangle chaque seconde pour ensuite afficher sa nouvelle position
-                instance.snake.draw(instance.ctx, instance.blockSize);  // Dessin du serpent
-                instance.apple.draw(instance.ctx, instance.blockSize);
-                instance.drawScore();
-                timeout = setTimeout(refreshCanvas, delay);  // Fonction qui permet de dire "Exécute la fonction à chaque fois que le délai défini dans la variable en paramètre (delay ici) est passé
+                    while(instance.apple.isOnSnake(instance.snake)) // Tant que la pomme est sur le snakee, redonne une nouvelle position à la pomme
+                }
+            instance.ctx.clearRect(0, 0, instance.canvas.width, instance.canvas.height);  // Efface le rectangle chaque seconde pour ensuite afficher sa nouvelle position
+            instance.snake.draw(instance.ctx, instance.blockSize);  // Dessin du serpent
+            instance.apple.draw(instance.ctx, instance.blockSize);
+            instance.drawScore();
+            timeout = setTimeout(refreshCanvas, delay);  // Fonction qui permet de dire "Exécute la fonction à chaque fois que le délai défini dans la variable en paramètre (delay ici) est passé
 
-                // ctx.fillRect(30, 30, 100, 50);  // 30 et 30 sont les distances x et y à partir desquelles on écrit, 100 et 50 sont les dimensions du rectangle (largeur et hauteur)
-            }
+            // ctx.fillRect(30, 30, 100, 50);  // 30 et 30 sont les distances x et y à partir desquelles on écrit, 100 et 50 sont les dimensions du rectangle (largeur et hauteur)
+        }
     }
         
     this.checkCollision = function()        // Vérifie si le snake touche le bord du canvas ou lui-même
@@ -123,17 +123,17 @@ function SnakeGame(canvasWidth, canvasHeight, blockSize, delay)    // Fonction c
             var isNotBetweenVerticalWalls = snakeY < minY || snakeY > maxY;
 
         if(isNotBetweenHorizontalWalls || isNotBetweenVerticalWalls)    // Check si collision du serpent avec un mur
-            {
-                wallCollision = true;
-            }
+        {
+            wallCollision = true;
+        }
 
         for(var i = 0; i < rest.length; i++)    // Check si collision du serpent avec lui-même
+        {
+            if(snakeX === rest[i][0] && snakeY === rest[i][1]) // Si le x ET le y de la tête sont sur les mêmes x et y qu'un bloc du reste du corps, alors il y a collision
             {
-                if(snakeX === rest[i][0] && snakeY === rest[i][1]) // Si le x ET le y de la tête sont sur les mêmes x et y qu'un bloc du reste du corps, alors il y a collision
-                    {
-                        snakeCollision = true;
-                    }
+                snakeCollision = true;
             }
+        }
         return wallCollision || snakeCollision;     // Si collision quelconque, la fonction checkCollision renvoie false
 
     };
@@ -179,49 +179,49 @@ function Snake(body, direction)     // Fonction constructeur => c'est un prototy
     this.direction = direction;     // Direction du snake, en paramètre du constructeur Snake
     this.ateApple = false;
     this.draw = function(ctx,blockSize)          // Fonction pour dessiner le snake
-        {
-            ctx.save();
-            ctx.fillStyle = "#ffe600";  // Jaune EY
-            for(var i = 0; i < this.body.length; i++)
-                {
-                    var x = this.body[i][0] * blockSize;
-                    var y = this.body[i][1] * blockSize;
-                    ctx.fillRect(x, y, blockSize, blockSize);
-                }
-            ctx.restore();  // Permet de dessiner sur le contexte puis de le remettre comme il était avant
+    {
+        ctx.save();
+        ctx.fillStyle = "#ffe600";  // Jaune EY
+        for(var i = 0; i < this.body.length; i++)
+            {
+                var x = this.body[i][0] * blockSize;
+                var y = this.body[i][1] * blockSize;
+                ctx.fillRect(x, y, blockSize, blockSize);
+            }
+        ctx.restore();  // Permet de dessiner sur le contexte puis de le remettre comme il était avant
 
-        }
+    }
     this.advance = function()   // Fonction pour faire avancer le serpent
-        {
-            var nextPosition = this.body[0].slice();    // Au début, body[0] correspond à l'array [6,4] (cf. ligne 23)
+    {
+        var nextPosition = this.body[0].slice();    // Au début, body[0] correspond à l'array [6,4] (cf. ligne 23)
 //                  nextPosition[0]++;      // Par défaut, le snake va à droite en incrémentant son x de 1
 //                  nextPosition[1]--;      // Par défaut, le snake va en haut en incrémentant son y de 1
 
-            // Définir les directions du snake
-            switch(this.direction)
-                {
-                    case "left":
-                        nextPosition[0]--; 
-                        break;
-                    case "right":
-                        nextPosition[0]++;
-                        break;
-                    case "down":
-                        nextPosition[1]++;
-                        break;
-                    case "up":
-                        nextPosition[1]--;
-                        break;
-                    default:
-                        throw("Invalid direction");
-                }
-            this.body.unshift(nextPosition);    // unshift permet de rajouter un élément en première position d'un array
-                                                // A la première itération, le array du Snake sera donc : Snake([[7,4],[6,4],[5,4],[4,4]])
-            if(!this.ateApple)          // Si le serpent n'a pas mangé une pomme ('!' = 'not'), supprimer le dernier bloc du corps
-                this.body.pop();                // Permet de supprimer le dernier block du Snake, pour le faire avancer après avoir ajouté un block à l'avant.
-            else
-                this.ateApple = false;
-        };
+        // Définir les directions du snake
+        switch(this.direction)
+            {
+                case "left":
+                    nextPosition[0]--; 
+                    break;
+                case "right":
+                    nextPosition[0]++;
+                    break;
+                case "down":
+                    nextPosition[1]++;
+                    break;
+                case "up":
+                    nextPosition[1]--;
+                    break;
+                default:
+                    throw("Invalid direction");
+            }
+        this.body.unshift(nextPosition);    // unshift permet de rajouter un élément en première position d'un array
+                                            // A la première itération, le array du Snake sera donc : Snake([[7,4],[6,4],[5,4],[4,4]])
+        if(!this.ateApple)          // Si le serpent n'a pas mangé une pomme ('!' = 'not'), supprimer le dernier bloc du corps
+            this.body.pop();                // Permet de supprimer le dernier block du Snake, pour le faire avancer après avoir ajouté un block à l'avant.
+        else
+            this.ateApple = false;
+    };
     this.setDirection = function(newDirection)      // Fonction pour changer la direction du serpent
                                                     // newDirection est un array
         {
@@ -279,7 +279,7 @@ function Apple(position)     // Fonction constructeur => c'est un prototype
         ctx.fill();
         ctx.restore();                  // Restore restaure le contexte sauvegardé, après dessin de la pomme
     };
-    this.setNewPosition = function(widthInBlocks, heightInBlocks)    // Si la pomme est mangée, changer sa position
+    this.setNewPosition = function(instance.widthInBlocks,instance.heightInBlocks)    // Si la pomme est mangée, changer sa position
     {
         var newX = Math.round(Math.random() * (widthInBlocks -1));  // Va donner un nombre entre 0 et 29
         var newY = Math.round(Math.random() * (heightInBlocks -1)); // Va donner un nombre entre 0 et 19
