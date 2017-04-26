@@ -95,7 +95,7 @@ function SnakeGame(canvasWidth, canvasHeight, blockSize, delay)    // Fonction c
                         {
                             instance.apple.setNewPosition(instance.widthInBlocks, instance.heightInBlocks);    // LE SERPENT A MANGé LA POMME
                         }
-                        while(instance.apple.isOnSnake(snakee)) // Tant que la pomme est sur le snakee, redonne une nouvelle position à la pomme
+                        while(instance.apple.isOnSnake(instance.snake)) // Tant que la pomme est sur le snakee, redonne une nouvelle position à la pomme
                     }
                 instance.ctx.clearRect(0, 0, instance.canvas.width, instance.canvas.height);  // Efface le rectangle chaque seconde pour ensuite afficher sa nouvelle position
                 instance.snake.draw(instance.ctx, instance.blockSize);  // Dessin du serpent
