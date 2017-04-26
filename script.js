@@ -46,12 +46,12 @@ document.onkeydown = function handleKeyDown(e)     // Gestion de la frappe d'une
 }
 
 
-function SnakeGame(canvasWidth, canvasHeight, blockSize, delay)    // Fonction constructeur
+function SnakeGame(canvasWidth,canvasHeight,blockSize,delay)    // Fonction constructeur
 {
     this.canvas = document.createElement('canvas');
     //Déclaration des variables globales
-    this.canvasWidth = canvasWidth;
-    this.canvasHeight = canvasHeight;
+    this.canvas.width = canvasWidth;
+    this.canvas.height = canvasHeight;
     this.canvas.style.border = "1px solid #ffe600";
     document.body.appendChild(this.canvas);
     this.ctx = this.canvas.getContext('2d');
