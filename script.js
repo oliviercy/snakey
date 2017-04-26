@@ -279,7 +279,7 @@ function Apple(position)     // Fonction constructeur => c'est un prototype
         ctx.fill();
         ctx.restore();                  // Restore restaure le contexte sauvegardé, après dessin de la pomme
     };
-    this.setNewPosition = function(instance.widthInBlocks,instance.heightInBlocks)    // Si la pomme est mangée, changer sa position
+    this.setNewPosition = function(widthInBlocks,heightInBlocks)    // Si la pomme est mangée, changer sa position
     {
         var newX = Math.round(Math.random() * (widthInBlocks -1));  // Va donner un nombre entre 0 et 29
         var newY = Math.round(Math.random() * (heightInBlocks -1)); // Va donner un nombre entre 0 et 19
