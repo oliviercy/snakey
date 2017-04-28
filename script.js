@@ -137,6 +137,14 @@ function SnakeGame(canvasWidth,canvasHeight,blockSize,delay)    // Fonction cons
         return wallCollision || snakeCollision;     // Si collision quelconque, la fonction checkCollision renvoie false
 
     };
+        
+    this.drawScore = function()
+    {
+        this.ctx.save();     // Enregistrement du contexte avant d'appliquer les changements
+        this.ctx.font = "bold 70px EYInterstate #ffe600";
+        this.ctx.fillText(this.score.toString(), 5, this.canvas.height - 5);
+        this.ctx.restore();  // Restauration du contexte sauvegardé
+    };
     
     this.gameOver = function()
     {
@@ -197,14 +205,6 @@ function SnakeGame(canvasWidth,canvasHeight,blockSize,delay)    // Fonction cons
         // Table des équivalences en octal / hex / html : http://www.pjb.com.au/comp/diacritics.html
         this.ctx.font = "bold italic 20px EYInterstate";
         this.ctx.fillText("Appuyer sur Espace pour rejouer.", centreX, centreY - 100);
-        this.ctx.restore();  // Restauration du contexte sauvegardé
-    };
-
-    this.drawScore = function()
-    {
-        this.ctx.save();     // Enregistrement du contexte avant d'appliquer les changements
-        this.ctx.font = "bold 70px EYInterstate #ffe600";
-        this.ctx.fillText(this.score.toString(), 5, this.canvas.height - 5);
         this.ctx.restore();  // Restauration du contexte sauvegardé
     };
         
