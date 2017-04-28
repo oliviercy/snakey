@@ -141,7 +141,7 @@ function SnakeGame(canvasWidth,canvasHeight,blockSize,delay)    // Fonction cons
     this.gameOver = function()
     {
         this.ctx.save();     // Enregistrement du contexte avant d'appliquer les changements
-        this.ctx.font = "bold 15px EYInterstate";
+        this.ctx.font = "bold 50px EYInterstate";
         var messages = ["grosse ch\350vre",
                         "chenille malade",
                         "trilobite an\351mique",
@@ -151,19 +151,59 @@ function SnakeGame(canvasWidth,canvasHeight,blockSize,delay)    // Fonction cons
                         "nodoc\351phale",
                         "coureuse de rempart",
                         "gourgandine",
+                        "retourne bosser",
+                        "bachi-bouzouk des Carpathes",
+                        "ectoplasme",
+                        "hurluberlu",
+                        "bayad\350re de carnaval",
+                        "boit-sans-soif",
+                        "amiral de bateau-lavoir",
+                        "cr\351tin des Alpes",
+                        "cloporte",
+                        "cuistre",
+                        "bougre d\'empl\342tre",
+                        "marchand de guano",
+                        "noix de coco",
+                        "oryct\351rope",
+                        "phl\351botome",
+                        "patate",
+                        "protozoaire",
+                        "amibe",
+                        "rhizopode",
+                        "scolopendre",
+                        "tchouk-tchouk-nougat",
+                        "topinambour",
+                        "troglodyte",
+                        "troufignol",
+                        "vandale",
+                        "va-nu-pieds",
+                        "v\351g\351tarien",
+                        "zigomar",
+                        "maraud",
+                        "paltoquet",
+                        "sapajou",
+                        "pendard",
                         "t'es mauvais Jack"];
-        j = Math.floor(Math.random() * 10) + 0   // Le premier chiffre est le nombre de possibilités, le deuxième la valeur de départ
-        this.ctx.fillText("Game over, " + messages[j] +" !", 5, 20);    // Il suffit de remplacer les caractères accentués par leur équivalent en octal précédé de \ (anti-slash)
-                                                                // Table des équivalences en octal / hex / html : http://www.pjb.com.au/comp/diacritics.html
-        this.ctx.font = "bold italic 10px EYInterstate";
-        this.ctx.fillText("Appuyer sur Espace pour rejouer.", 5, 50);
+        j = Math.floor(Math.random() * 42) + 0   // Le premier chiffre est le nombre de possibilités, le deuxième la valeur de départ
+        this.ctx.textAlign = "center";
+        this.ctx.textBaseline = "middle";
+        var centreX = this.canvas.width / 2;
+        var centreY = this.canvas.height / 2;
+        this.ctx.strokeStyle = "#fff";
+        this.ctx.fillStyle = "#7f7e82";
+        this.ctx.strokeText("Game over, " + messages[j] +" !", centreX, centreY - 180);
+        this.ctx.fillText("Game over, " + messages[j] +" !", centreX, centreY - 180);
+        // Il suffit de remplacer les caractères accentués par leur équivalent en octal précédé de \ (anti-slash)
+        // Table des équivalences en octal / hex / html : http://www.pjb.com.au/comp/diacritics.html
+        this.ctx.font = "bold italic 20px EYInterstate";
+        this.ctx.fillText("Appuyer sur Espace pour rejouer.", centreX, centreY - 100);
         this.ctx.restore();  // Restauration du contexte sauvegardé
     };
 
     this.drawScore = function()
     {
         this.ctx.save();     // Enregistrement du contexte avant d'appliquer les changements
-        this.ctx.font = "bold 15px EYInterstate";
+        this.ctx.font = "bold 70px EYInterstate #ffe600";
         this.ctx.fillText(this.score.toString(), 5, this.canvas.height - 5);
         this.ctx.restore();  // Restauration du contexte sauvegardé
     };
